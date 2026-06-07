@@ -1,0 +1,43 @@
+# GitHub Pages Configuration for Portfolio
+
+# Site settings
+title: Muhamad Fazry Fadilah Wiratama
+tagline: Software Engineering Graduate & Administrative Specialist
+description: >
+  Portofolio profesional menampilkan pengalaman, keahlian, dan pencapaian
+  di bidang administrasi, logistik, dan teknologi.
+
+# Build settings
+theme: jekyll-theme-minimal
+lang: id
+
+# Plugin settings
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# SEO settings
+url: "https://hujanpawang529-del.github.io/portofolio"
+baseurl: "/portofolio"
+
+# Author info
+author:
+  name: Muhamad Fazry Fadilah Wiratama
+  email: muhamadfazryfadilah@gmail.com
+  location: Bandung, Jawa Barat
+
+# Social settings
+social:
+  email: muhamadfazryfadilah@gmail.com
+  phone: +62 853 1191 4647
+
+# Build options
+markdown: kramdown
+exclude:
+  - .gitignore
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+
+# Timezone
+timezone: Asia/Jakarta
