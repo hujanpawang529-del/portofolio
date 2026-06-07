@@ -538,6 +538,7 @@
         @media (max-width: 768px) {
             nav {
                 grid-template-columns: 1fr;
+                padding: 1rem;
             }
 
             .nav-links {
@@ -547,6 +548,7 @@
 
             .hero {
                 margin-top: 120px;
+                grid-template-columns: 1fr;
             }
 
             .hero-content h1 {
@@ -555,6 +557,10 @@
 
             .hero-image {
                 height: 300px;
+            }
+
+            .container {
+                padding: 1rem;
             }
 
             .portfolio-grid {
@@ -585,6 +591,10 @@
                 grid-template-columns: repeat(3, 1fr);
                 width: 100%;
             }
+
+            .cta-buttons {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -606,6 +616,20 @@
 
             .nav-links {
                 grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
             }
         }
     </style>
