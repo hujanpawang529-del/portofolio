@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhamad Fazry Fadilah Wiratama - Portofolio</title>
+    <title>Muhamad Fazry Fadilah - Portofolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -39,8 +39,9 @@
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
             align-items: center;
             z-index: 1000;
             border-bottom: 1px solid rgba(99, 102, 241, 0.2);
@@ -56,7 +57,8 @@
         }
 
         .nav-links {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(3, auto);
             gap: 2rem;
             list-style: none;
         }
@@ -105,11 +107,11 @@
         /* ====== HOME PAGE ====== */
         .hero {
             margin-top: 80px;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 4rem;
+            align-items: center;
+            min-height: 90vh;
         }
 
         .hero-content h1 {
@@ -130,9 +132,10 @@
         }
 
         .cta-buttons {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 1rem;
-            flex-wrap: wrap;
+            width: 100%;
         }
 
         .btn {
@@ -144,6 +147,11 @@
             border: none;
             cursor: pointer;
             font-size: 1rem;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .btn-primary {
@@ -168,7 +176,7 @@
 
         .hero-image {
             position: relative;
-            width: 400px;
+            width: 100%;
             height: 400px;
         }
 
@@ -206,7 +214,7 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* Quick Stats */
+        /* Quick Stats - Grid */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -218,6 +226,17 @@
 
         .stat-item {
             text-align: center;
+            padding: 1.5rem;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-5px);
         }
 
         .stat-number {
@@ -255,17 +274,16 @@
             font-size: 1.1rem;
         }
 
-        /* Filter Buttons */
+        /* Filter Buttons - Grid */
         .filters {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 1rem;
             margin-bottom: 3rem;
-            flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 8px 16px;
+            padding: 10px 16px;
             border-radius: 20px;
             border: 2px solid rgba(99, 102, 241, 0.3);
             background: transparent;
@@ -284,11 +302,12 @@
             border-color: var(--primary);
         }
 
-        /* Portfolio Grid */
+        /* Portfolio Grid - Main Grid */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .portfolio-card {
@@ -298,6 +317,8 @@
             overflow: hidden;
             transition: all 0.3s;
             cursor: pointer;
+            display: grid;
+            grid-template-rows: 200px 1fr;
         }
 
         .portfolio-card:hover {
@@ -318,6 +339,9 @@
 
         .portfolio-card-content {
             padding: 2rem;
+            display: grid;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 1rem;
         }
 
         .portfolio-card-title {
@@ -328,14 +352,14 @@
 
         .portfolio-card-desc {
             color: var(--text-muted);
-            margin-bottom: 1rem;
             font-size: 0.95rem;
         }
 
         .portfolio-tags {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
             gap: 0.5rem;
-            flex-wrap: wrap;
+            margin-top: auto;
         }
 
         .tag {
@@ -344,9 +368,10 @@
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
+            text-align: center;
         }
 
-        /* Skills Section */
+        /* Skills Section - Grid */
         .skills-section {
             margin-top: 5rem;
             padding-top: 4rem;
@@ -381,6 +406,7 @@
         .skill-card:hover {
             transform: scale(1.05);
             border-color: var(--secondary);
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.2);
         }
 
         .skill-icon {
@@ -396,60 +422,26 @@
             font-weight: 600;
         }
 
-        /* Experience Timeline */
-        .timeline {
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
-            transform: translateX(-50%);
+        /* Experience Timeline - Grid */
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
         .timeline-item {
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content {
-            margin-left: 0;
-            margin-right: auto;
-            width: 48%;
-            text-align: right;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content {
-            margin-left: auto;
-            margin-right: 0;
-            width: 48%;
-            text-align: left;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            width: 16px;
-            height: 16px;
-            background: var(--primary);
-            border: 4px solid var(--dark);
-            border-radius: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-        }
-
-        .timeline-content {
             background: rgba(99, 102, 241, 0.1);
             border: 1px solid rgba(99, 102, 241, 0.2);
+            border-left: 4px solid var(--primary);
             padding: 2rem;
             border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover {
+            border-left-color: var(--secondary);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
+            transform: translateY(-5px);
         }
 
         .timeline-year {
@@ -469,6 +461,7 @@
         .timeline-desc {
             color: var(--text-muted);
             font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         /* Footer */
@@ -480,11 +473,10 @@
         }
 
         .footer-content {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
             margin-bottom: 2rem;
-            flex-wrap: wrap;
         }
 
         .footer-link {
@@ -498,10 +490,11 @@
         }
 
         .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 150px;
+            margin: 2rem auto;
+            gap: 1rem;
         }
 
         .social-icon {
@@ -523,10 +516,37 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .hero {
-                flex-direction: column;
-                margin-top: 100px;
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .cta-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                grid-template-columns: repeat(3, auto);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .hero {
+                margin-top: 120px;
             }
 
             .hero-content h1 {
@@ -534,45 +554,58 @@
             }
 
             .hero-image {
-                width: 100%;
                 height: 300px;
             }
 
-            .nav-links {
-                gap: 1rem;
+            .portfolio-grid {
+                grid-template-columns: 1fr;
             }
 
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-
-            .timeline::before {
-                left: 10px;
-            }
-
-            .timeline-item:nth-child(odd) .timeline-content,
-            .timeline-item:nth-child(even) .timeline-content {
-                width: 100%;
-                margin-left: 0;
-                margin-right: 0;
-                text-align: left;
-            }
-
-            .timeline-dot {
-                left: 10px;
+            .filters {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .portfolio-header h2 {
                 font-size: 2rem;
             }
 
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .timeline-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                grid-template-columns: repeat(3, 1fr);
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
             .hero-content h1 {
                 font-size: 2rem;
+            }
+
+            .portfolio-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -597,7 +630,7 @@
                 <div class="hero-content">
                     <h1>Hai, Saya Fazry 👋</h1>
                     <p>Software Engineering Graduate & Administrative Specialist</p>
-                    <p style="color: var(--text-muted); font-size: 1rem;">Siap berkontribusi di bidang administrasi, logistik, dan teknologi dengan dedikasi penuh.</p>
+                    <p style="color: var(--text-muted); font-size: 1rem;">Siap berkontribusi di bidang administrasi, logistik, teknologi, dan entrepreneurship dengan dedikasi penuh.</p>
                     
                     <div class="cta-buttons">
                         <button class="btn btn-primary" onclick="showPage('portfolio')">
@@ -631,23 +664,23 @@
 
                     <div class="floating-card">
                         <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏆</div>
-                        <div style="font-size: 0.9rem; font-weight: 600;">4 Bulan Pengalaman</div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted);">PT Alkindo</div>
+                        <div style="font-size: 0.9rem; font-weight: 600;">5+ Pengalaman</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Profesional</div>
                     </div>
                 </div>
             </section>
 
             <section class="stats">
                 <div class="stat-item">
-                    <div class="stat-number">3</div>
+                    <div class="stat-number">4</div>
                     <div class="stat-label">Keahlian Utama</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">4+</div>
-                    <div class="stat-label">Bulan Pengalaman</div>
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Pengalaman Kerja</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">20+</div>
+                    <div class="stat-number">25+</div>
                     <div class="stat-label">Proyek & Kegiatan</div>
                 </div>
                 <div class="stat-item">
@@ -676,8 +709,8 @@
                 <div class="portfolio-card" data-category="skills">
                     <div class="portfolio-card-image">📊</div>
                     <div class="portfolio-card-content">
-                        <div class="portfolio-card-title">Administrasi & Data</div>
-                        <div class="portfolio-card-desc">Penginputan data, stock opname, pengelolaan dokumen dengan akurat dan terorganisir.</div>
+                        <div class="portfolio-card-title">Administrasi & Manajemen Data</div>
+                        <div class="portfolio-card-desc">Penginputan data, stock opname, dan pengelolaan dokumen logistik dengan akurat serta terorganisir.</div>
                         <div class="portfolio-tags">
                             <span class="tag">Data Entry</span>
                             <span class="tag">Logistik</span>
@@ -689,7 +722,7 @@
                     <div class="portfolio-card-image">💻</div>
                     <div class="portfolio-card-content">
                         <div class="portfolio-card-title">Teknis & Software</div>
-                        <div class="portfolio-card-desc">Software Engineering dasar, Microsoft Office, pengolahan dokumen digital efisien.</div>
+                        <div class="portfolio-card-desc">Dasar software engineering, Microsoft Office, dan pengolahan dokumen digital secara efisien.</div>
                         <div class="portfolio-tags">
                             <span class="tag">HTML/CSS</span>
                             <span class="tag">Office</span>
@@ -700,11 +733,23 @@
                 <div class="portfolio-card" data-category="skills">
                     <div class="portfolio-card-image">🤝</div>
                     <div class="portfolio-card-content">
-                        <div class="portfolio-card-title">Soft Skills</div>
-                        <div class="portfolio-card-desc">Customer Service, teamwork, komunikasi interpersonal, manajemen krisis & organisasi.</div>
+                        <div class="portfolio-card-title">Soft Skills & Kepemimpinan</div>
+                        <div class="portfolio-card-desc">Customer service, teamwork, komunikasi interpersonal, manajemen krisis, dan organisasi acara.</div>
                         <div class="portfolio-tags">
                             <span class="tag">Leadership</span>
                             <span class="tag">Teamwork</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="skills">
+                    <div class="portfolio-card-image">🛍️</div>
+                    <div class="portfolio-card-content">
+                        <div class="portfolio-card-title">Entrepreneurship & Retail</div>
+                        <div class="portfolio-card-desc">Manajemen usaha ritel, inventory control, dan customer relations dalam bisnis pakan hewan.</div>
+                        <div class="portfolio-tags">
+                            <span class="tag">Business</span>
+                            <span class="tag">Retail</span>
                         </div>
                     </div>
                 </div>
@@ -713,11 +758,23 @@
                 <div class="portfolio-card" data-category="experience">
                     <div class="portfolio-card-image">🏢</div>
                     <div class="portfolio-card-content">
-                        <div class="portfolio-card-title">PT Alkindo Naratama</div>
-                        <div class="portfolio-card-desc">Staff Gudang - Manajemen inventaris, akurasi data, kolaborasi tim logistik. (4 bulan)</div>
+                        <div class="portfolio-card-title">PT Alkindo Naratama Tbk</div>
+                        <div class="portfolio-card-desc">Staff Gudang - Manajemen inventaris, akurasi data, dan kolaborasi tim logistik perusahaan. (4 bulan)</div>
                         <div class="portfolio-tags">
                             <span class="tag">Nov 2025</span>
                             <span class="tag">Feb 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="experience">
+                    <div class="portfolio-card-image">🛒</div>
+                    <div class="portfolio-card-content">
+                        <div class="portfolio-card-title">Usaha Ritel Pakan Hewan</div>
+                        <div class="portfolio-card-desc">Membangun dan mengelola usaha ritel yang menjual pakan hewan berkualitas, peralatan hewan, dan vaksin hewan.</div>
+                        <div class="portfolio-tags">
+                            <span class="tag">Business</span>
+                            <span class="tag">Retail</span>
                         </div>
                     </div>
                 </div>
@@ -727,7 +784,7 @@
                     <div class="portfolio-card-image">🎓</div>
                     <div class="portfolio-card-content">
                         <div class="portfolio-card-title">SMK Bina Putra</div>
-                        <div class="portfolio-card-desc">Software Engineering (Rekayasa Perangkat Lunak) - Logika, database, pengembangan software.</div>
+                        <div class="portfolio-card-desc">Software Engineering (Rekayasa Perangkat Lunak) - Mempelajari logika pemrograman, database, dan pengembangan software.</div>
                         <div class="portfolio-tags">
                             <span class="tag">2023-2026</span>
                             <span class="tag">Aktif</span>
@@ -739,7 +796,7 @@
                     <div class="portfolio-card-image">🏆</div>
                     <div class="portfolio-card-content">
                         <div class="portfolio-card-title">OSIS & Bela Negara</div>
-                        <div class="portfolio-card-desc">Manajemen acara, koordinasi upacara, kerjasama tim lintas divisi organisasi.</div>
+                        <div class="portfolio-card-desc">Manajemen acara, koordinasi upacara, dan kerjasama tim lintas divisi organisasi sekolah.</div>
                         <div class="portfolio-tags">
                             <span class="tag">May 2024</span>
                             <span class="tag">Oct 2025</span>
@@ -782,41 +839,29 @@
             <!-- Timeline -->
             <div class="skills-section">
                 <h3>Timeline Perjalanan</h3>
-                <div class="timeline">
+                <div class="timeline-grid">
                     <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-year">2023</div>
-                            <div class="timeline-title">Masuk SMK Bina Putra</div>
-                            <div class="timeline-desc">Memulai perjalanan belajar Software Engineering dengan fokus pada pengembangan perangkat lunak dan database.</div>
-                        </div>
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-title">Masuk SMK Bina Putra</div>
+                        <div class="timeline-desc">Memulai perjalanan pendidikan Software Engineering dengan fokus pada pengembangan perangkat lunak dan database.</div>
                     </div>
 
                     <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-year">2024</div>
-                            <div class="timeline-title">Bergabung dengan OSIS</div>
-                            <div class="timeline-desc">Aktif dalam organisasi sekolah dan mengembangkan soft skills melalui manajemen acara dan kepemimpinan tim.</div>
-                        </div>
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-title">Bergabung OSIS & Entrepreneurship</div>
+                        <div class="timeline-desc">Aktif dalam organisasi sekolah dan memulai usaha ritel pakan hewan dengan dedikasi penuh dalam mengelola bisnis.</div>
                     </div>
 
                     <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-year">2025-2026</div>
-                            <div class="timeline-title">Praktik Kerja Lapangan</div>
-                            <div class="timeline-desc">PKL di PT Alkindo Naratama sebagai Staff Gudang, mendapatkan pengalaman praktis dalam manajemen inventaris dan logistik.</div>
-                        </div>
+                        <div class="timeline-year">2025-2026</div>
+                        <div class="timeline-title">Praktik Kerja Lapangan</div>
+                        <div class="timeline-desc">Menjalankan PKL di PT Alkindo Naratama sebagai Staff Gudang sambil mengelola usaha ritel pakan hewan.</div>
                     </div>
 
                     <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-year">2026</div>
-                            <div class="timeline-title">Siap Masuk Dunia Kerja</div>
-                            <div class="timeline-desc">Lulus SMK dan siap berkontribusi profesional di bidang administrasi, operasional, dan teknologi.</div>
-                        </div>
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-title">Lulus & Siap Profesional</div>
+                        <div class="timeline-desc">Lulus SMK dengan pengalaman di administrasi, teknologi, dan entrepreneurship, siap berkontribusi profesional.</div>
                     </div>
                 </div>
             </div>
@@ -850,19 +895,15 @@
 
     <script>
         function showPage(pageId) {
-            // Hide all pages
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
 
-            // Show selected page
             document.getElementById(pageId).classList.add('active');
 
-            // Update nav links
             const navLinks = document.querySelectorAll('.nav-links a');
             navLinks.forEach(link => link.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Scroll to top
             window.scrollTo(0, 0);
         }
 
@@ -875,7 +916,7 @@
 
             cards.forEach(card => {
                 if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
+                    card.style.display = 'grid';
                     setTimeout(() => card.style.opacity = '1', 0);
                 } else {
                     card.style.display = 'none';
@@ -883,7 +924,6 @@
             });
         }
 
-        // Handle navigation clicks
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function() {
                 document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
