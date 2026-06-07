@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhamad Fazry Fadilah Wiratama - Portofolio Profesional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary-color: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header-content p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            font-size: 0.95em;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-info a {
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .contact-info a:hover {
+            opacity: 0.8;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            background: var(--white);
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        section h2 {
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .skill-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .skill-card p {
+            color: var(--text-light);
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .experience-item {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .exp-header h3 {
+            font-size: 1.3em;
+            color: var(--primary-color);
+        }
+
+        .exp-date {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .exp-position {
+            font-size: 1.05em;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .exp-duration {
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .exp-description {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .exp-description ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .exp-description li {
+            margin-bottom: 8px;
+        }
+
+        .education-item {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .education-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .edu-title {
+            font-size: 1.15em;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .edu-field {
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .edu-period {
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .edu-description {
+            color: var(--text-light);
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .edu-description ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .edu-description li {
+            margin-bottom: 6px;
+        }
+
+        .org-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .org-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .org-title {
+            font-size: 1.2em;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .org-role {
+            font-size: 1.05em;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .org-period {
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .org-description {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .org-description ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .org-description li {
+            margin-bottom: 8px;
+        }
+
+        .about-text {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2em;
+            }
+
+            .contact-info {
+                gap: 15px;
+            }
+
+            .exp-header {
+                flex-direction: column;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            section h2 {
+                font-size: 1.5em;
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Muhamad Fazry Fadilah Wiratama</h1>
+            <p>Software Engineering Graduate & Administrative Specialist</p>
+            <div class="contact-info">
+                <span>📍 Bandung, Jawa Barat</span>
+                <span>📱 <a href="tel:+6285311914647">+62 853 1191 4647</a></span>
+                <span>✉️ <a href="mailto:muhamadfazryfadilah@gmail.com">muhamadfazryfadilah@gmail.com</a></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tentang Saya -->
+        <section>
+            <h2><span class="icon">👤</span> Tentang Saya</h2>
+            <p class="about-text">
+                Saya adalah lulusan SMK jurusan <strong>Software Engineering</strong> (Rekayasa Perangkat Lunak) yang memiliki kombinasi keahlian teknis serta pengalaman praktis di bidang administrasi operasional. Melalui pengalaman Praktik Kerja Lapangan (PKL) dan kerja sebagai Staff Gudang, saya telah mengasah ketelitian dalam mengelola data, manajemen inventaris, dan koordinasi tim. Didukung latar belakang organisasi yang kuat, saya siap berkontribusi secara profesional di bidang administrasi, operasional, maupun teknologi.
+            </p>
+        </section>
+
+        <!-- Keahlian Utama -->
+        <section>
+            <h2><span class="icon">⭐</span> Keahlian Utama</h2>
+            <div class="skill-grid">
+                <div class="skill-card">
+                    <h3>📊 Administrasi & Manajemen Data</h3>
+                    <p>Penginputan data, stock opname, pengelolaan dokumen logistik dengan akurat dan terorganisir.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>💻 Teknis & Software</h3>
+                    <p>Software Engineering dasar, Microsoft Word, pengolahan dokumen digital yang efisien.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🤝 Interpersonal & Soft Skills</h3>
+                    <p>Customer Service, teamwork, komunikasi interpersonal, manajemen krisis, dan organisasi acara.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pengalaman Kerja -->
+        <section>
+            <h2><span class="icon">💼</span> Pengalaman Relevan</h2>
+            <div class="experience-item">
+                <div class="exp-header">
+                    <h3>PT Alkindo Naratama Tbk</h3>
+                    <span class="exp-date">Nov 2025 - Feb 2026</span>
+                </div>
+                <div class="exp-position">Staff Gudang (Administrasi & Logistik)</div>
+                <div class="exp-duration">Total 4 bulan (termasuk Praktik Kerja Lapangan)</div>
+                <div class="exp-description">
+                    <p style="margin-bottom: 12px;">Bertanggung jawab penuh dalam mendukung kelancaran operasional arus barang di gudang dengan fokus pada akurasi dan efisiensi.</p>
+                    <ul>
+                        <li><strong>Manajemen Inventaris:</strong> Mengelola, mendata, dan mendistribusikan barang gudang secara akurat dan terorganisir</li>
+                        <li><strong>Akurasi Data:</strong> Membantu proses administrasi internal dan pencatatan berkala guna memastikan kesesuaian fisik barang dengan sistem data</li>
+                        <li><strong>Kolaborasi Tim:</strong> Berkoordinasi dengan tim logistik untuk mempercepat proses bongkar muat dan distribusi barang</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pendidikan -->
+        <section>
+            <h2><span class="icon">🎓</span> Riwayat Pendidikan</h2>
+            <div class="education-item">
+                <div class="edu-title">SMK Bina Putra</div>
+                <div class="edu-field">Software Engineering (Rekayasa Perangkat Lunak)</div>
+                <div class="edu-period">Jun 2023 - Jun 2026</div>
+                <div class="edu-description">
+                    <ul>
+                        <li>Mempelajari dasar-dasar logika pemrograman, pengembangan perangkat lunak, dan pengelolaan database</li>
+                        <li>Aktif dalam kegiatan sekolah dan pengembangan diri melalui organisasi internal</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pengalaman Organisasi -->
+        <section>
+            <h2><span class="icon">🏆</span> Pengalaman Organisasi & Kepemimpinan</h2>
+            <div class="org-item">
+                <div class="org-title">OSIS & Bela Negara (Organisasi Intra Sekolah)</div>
+                <div class="org-role">Anggota / Tim Lapangan</div>
+                <div class="org-period">Mei 2024 - Okt 2025</div>
+                <div class="org-description">
+                    <ul>
+                        <li><strong>Manajemen Acara:</strong> Terjun langsung ke lapangan dalam merencanakan, mempersiapkan, dan mengeksekusi berbagai event sekolah serta agenda besar</li>
+                        <li><strong>Operasional Upacara:</strong> Bertanggung jawab atas persiapan teknis dan koordinasi pasukan dalam pelaksanaan apel upacara serta kegiatan semi-militer sekolah</li>
+                        <li><strong>Kerjasama Tim:</strong> Mengkoordinasikan komunikasi antar divisi organisasi untuk memastikan acara berjalan tepat waktu dan minim kendala</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Posisi yang Dicari -->
+        <section>
+            <h2><span class="icon">🎯</span> Peluang Karir</h2>
+            <p class="about-text">
+                Saya terbuka untuk peluang kerja di bidang:
+            </p>
+            <div style="margin-top: 15px;">
+                <span class="badge">Administrasi</span>
+                <span class="badge">Staff Operasional</span>
+                <span class="badge">Logistik & Gudang</span>
+                <span class="badge">Entry-level IT/Teknologi</span>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>Muhamad Fazry Fadilah Wiratama</strong></p>
+            <p>Software Engineering Graduate & Administrative Specialist</p>
+            <div class="footer-links">
+                <a href="tel:+6285311914647">📱 +62 853 1191 4647</a>
+                <a href="mailto:muhamadfazryfadilah@gmail.com">✉️ Email</a>
+                <a href="#">💼 LinkedIn</a>
+            </div>
+            <p style="margin-top: 20px; opacity: 0.8; font-size: 0.9em;">© 2026 - Bandung, Jawa Barat</p>
+        </div>
+    </footer>
+</body>
+</html>
