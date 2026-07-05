@@ -21,6 +21,7 @@
             --light: #f1f5f9;
             --text: #e2e8f0;
             --text-muted: #94a3b8;
+            --sidebar-width: 250px;
         }
 
         body {
@@ -29,6 +30,100 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(99, 102, 241, 0.2);
+            z-index: 999;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            padding-top: 80px;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar-content {
+            padding: 2rem 1.5rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .sidebar-links a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-links a:hover,
+        .sidebar-links a.active {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+            padding-left: 0.75rem;
+        }
+
+        .sidebar-close {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar-close:hover {
+            color: var(--primary);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+
+        .overlay.active {
+            display: block;
         }
 
         /* Navigation */
@@ -40,11 +135,25 @@
             backdrop-filter: blur(10px);
             padding: 1rem 2rem;
             display: grid;
-            grid-template-columns: 1fr auto;
+            grid-template-columns: auto 1fr auto;
             gap: 2rem;
             align-items: center;
             z-index: 1000;
             border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .menu-toggle:hover {
+            color: var(--primary);
         }
 
         .logo {
@@ -81,6 +190,7 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
+            position: relative;
         }
 
         /* Pages */
@@ -507,6 +617,7 @@
             justify-content: center;
             color: var(--primary);
             transition: all 0.3s;
+            text-decoration: none;
         }
 
         .social-icon:hover {
@@ -536,14 +647,29 @@
         }
 
         @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
             nav {
-                grid-template-columns: 1fr;
+                grid-template-columns: auto 1fr auto;
                 padding: 1rem;
             }
 
             .nav-links {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
+                display: none;
+            }
+
+            .sidebar-close {
+                display: block;
+            }
+
+            .sidebar-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .sidebar-links {
+                gap: 0.5rem;
             }
 
             .hero {
@@ -598,6 +724,14 @@
         }
 
         @media (max-width: 480px) {
+            nav {
+                grid-template-columns: 1fr auto;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
             .hero-content h1 {
                 font-size: 2rem;
             }
@@ -614,29 +748,51 @@
                 grid-template-columns: 1fr;
             }
 
-            .nav-links {
+            .filters {
                 grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-
-            .logo {
-                font-size: 1.2rem;
-            }
-
-            .nav-links a {
-                font-size: 0.9rem;
             }
 
             .btn {
                 padding: 10px 16px;
                 font-size: 0.9rem;
             }
+
+            .social-links {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+            }
+
+            .portfolio-card-image {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Overlay untuk sidebar -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <button class="sidebar-close" id="sidebarClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="sidebar-content">
+            <div class="sidebar-title">Menu</div>
+            <ul class="sidebar-links">
+                <li><a href="#" onclick="showPage('home'); toggleSidebar()" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#" onclick="showPage('portfolio'); toggleSidebar()"><i class="fas fa-briefcase"></i> Portfolio</a></li>
+                <li><a href="mailto:muhamadfazryfadilah@gmail.com"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="https://github.com/hujanpawang529-del" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            </ul>
+        </div>
+    </aside>
+
     <!-- Navigation -->
     <nav>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
         <div class="logo">
             <i class="fas fa-rocket"></i> Fazry
         </div>
@@ -918,6 +1074,22 @@
     </footer>
 
     <script>
+        // Toggle Sidebar
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebarClose = document.getElementById('sidebarClose');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        menuToggle.addEventListener('click', toggleSidebar);
+        sidebarClose.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+
+        // Show Page
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
@@ -926,17 +1098,23 @@
 
             const navLinks = document.querySelectorAll('.nav-links a');
             navLinks.forEach(link => link.classList.remove('active'));
-            event.target.classList.add('active');
+            
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
 
             window.scrollTo(0, 0);
         }
 
+        // Filter Portfolio
         function filterPortfolio(category) {
             const cards = document.querySelectorAll('.portfolio-card');
             const buttons = document.querySelectorAll('.filter-btn');
 
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
 
             cards.forEach(card => {
                 if (category === 'all' || card.dataset.category === category) {
@@ -948,11 +1126,40 @@
             });
         }
 
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        // Sidebar Links Active State
+        document.querySelectorAll('.sidebar-links a').forEach(link => {
             link.addEventListener('click', function() {
-                document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.sidebar-links a').forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
             });
+        });
+
+        // Nav Links Active State
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('onclick')) {
+                    document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Prevent body scroll when sidebar is open
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('menuToggle');
+            const sidebarElement = document.getElementById('sidebar');
+            
+            function updateSidebarState() {
+                if (sidebarElement.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            sidebarToggle.addEventListener('click', updateSidebarState);
+            overlay.addEventListener('click', updateSidebarState);
+            sidebarClose.addEventListener('click', updateSidebarState);
         });
     </script>
 </body>
