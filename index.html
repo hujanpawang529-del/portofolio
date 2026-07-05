@@ -21,7 +21,6 @@
             --light: #f1f5f9;
             --text: #e2e8f0;
             --text-muted: #94a3b8;
-            --sidebar-width: 250px;
         }
 
         body {
@@ -30,183 +29,14 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* Sidebar Navigation */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: var(--sidebar-width);
-            height: 100vh;
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(10px);
-            border-right: 1px solid rgba(99, 102, 241, 0.2);
-            z-index: 999;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            padding-top: 80px;
-            overflow-y: auto;
-        }
-
-        .sidebar.active {
-            transform: translateX(0);
-        }
-
-        .sidebar-content {
-            padding: 2rem 1.5rem;
-        }
-
-        .sidebar-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .sidebar-links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            list-style: none;
-        }
-
-        .sidebar-links a {
-            color: var(--text);
-            text-decoration: none;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .sidebar-links a:hover,
-        .sidebar-links a.active {
-            background: rgba(99, 102, 241, 0.2);
-            color: var(--primary);
-            border-left: 3px solid var(--primary);
-            padding-left: 0.75rem;
-        }
-
-        .sidebar-close {
-            display: none;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: transparent;
-            border: none;
-            color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-            z-index: 1000;
-        }
-
-        .sidebar-close:hover {
-            color: var(--primary);
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 998;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 2rem;
-            align-items: center;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
-        }
-
-        .menu-toggle {
-            display: none;
-            background: transparent;
-            border: none;
-            color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .menu-toggle:hover {
-            color: var(--primary);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: grid;
-            grid-template-columns: repeat(3, auto);
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            transition: color 0.3s;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--primary);
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-        }
-
-        /* Pages */
-        .page {
-            display: none;
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
+        /* Page Transition */
+        @keyframes pageEnter {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -214,42 +44,127 @@
             }
         }
 
-        /* ====== HOME PAGE ====== */
-        .hero {
-            margin-top: 80px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            min-height: 90vh;
+        @keyframes pageExit {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
         }
 
-        .hero-content h1 {
-            font-size: 4rem;
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Top Header */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            animation: slideInDown 0.6s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-section {
+            font-size: 2rem;
             font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .hero-content p {
-            font-size: 1.3rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
-        .cta-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .nav-buttons {
+            display: flex;
             gap: 1rem;
-            width: 100%;
         }
 
         .btn {
-            padding: 12px 28px;
+            padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
@@ -257,7 +172,6 @@
             border: none;
             cursor: pointer;
             font-size: 1rem;
-            text-align: center;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -271,82 +185,146 @@
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
         }
 
         .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary);
+            background: rgba(99, 102, 241, 0.2);
             color: var(--primary);
+            border: 2px solid var(--primary);
         }
 
         .btn-secondary:hover {
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(99, 102, 241, 0.3);
+            transform: translateY(-3px);
         }
 
-        .hero-image {
+        /* Pages */
+        .page {
+            display: none;
+            animation: pageEnter 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ====== HOME PAGE ====== */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: 70vh;
+            margin-bottom: 6rem;
+        }
+
+        .hero-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .hero-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            width: 100%;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-visual {
             position: relative;
-            width: 100%;
-            height: 400px;
+            height: 500px;
         }
 
-        .hero-image svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .floating-card {
+        .hero-shape {
             position: absolute;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            border-radius: 12px;
-            animation: float 3s ease-in-out infinite;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: float 4s ease-in-out infinite;
+            filter: blur(1px);
         }
 
-        .floating-card:nth-child(1) {
+        .hero-shape.shape-1 {
             top: 20px;
-            right: 20px;
-            width: 150px;
+            right: 0;
             animation-delay: 0s;
         }
 
-        .floating-card:nth-child(2) {
+        .hero-shape.shape-2 {
             bottom: 20px;
-            left: 20px;
-            width: 180px;
+            left: 0;
+            width: 250px;
+            height: 250px;
             animation-delay: 1s;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        .hero-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 6rem;
+            animation: scaleIn 1s ease-out;
         }
 
-        /* Quick Stats - Grid */
-        .stats {
+        .stat-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
             margin-top: 4rem;
-            padding-top: 4rem;
-            border-top: 1px solid rgba(99, 102, 241, 0.2);
         }
 
-        .stat-item {
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(99, 102, 241, 0.05);
+        .stat {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%);
+            padding: 2rem;
             border-radius: 12px;
-            border: 1px solid rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            text-align: center;
+            cursor: pointer;
             transition: all 0.3s;
+            animation: slideInUp 1s ease-out;
         }
 
-        .stat-item:hover {
-            background: rgba(99, 102, 241, 0.1);
+        .stat:nth-child(1) { animation-delay: 0.2s; }
+        .stat:nth-child(2) { animation-delay: 0.4s; }
+        .stat:nth-child(3) { animation-delay: 0.6s; }
+        .stat:nth-child(4) { animation-delay: 0.8s; }
+
+        .stat:hover {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(236, 72, 153, 0.1) 100%);
             border-color: var(--primary);
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
         }
 
         .stat-number {
@@ -361,17 +339,23 @@
         .stat-label {
             color: var(--text-muted);
             margin-top: 0.5rem;
+            font-size: 0.95rem;
         }
 
         /* ====== PORTFOLIO PAGE ====== */
-        .portfolio-header {
-            margin-top: 80px;
-            text-align: center;
-            margin-bottom: 4rem;
+        .portfolio-section {
+            animation: pageEnter 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .portfolio-header h2 {
-            font-size: 3rem;
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 900;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             -webkit-background-clip: text;
@@ -379,67 +363,74 @@
             background-clip: text;
         }
 
-        .portfolio-header p {
-            color: var(--text-muted);
+        .section-subtitle {
             font-size: 1.1rem;
+            color: var(--text-muted);
         }
 
-        /* Filter Buttons - Grid */
-        .filters {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        .filter-group {
+            display: flex;
+            justify-content: center;
             gap: 1rem;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            animation: slideInUp 1s ease-out;
         }
 
         .filter-btn {
-            padding: 10px 16px;
+            padding: 10px 20px;
             border-radius: 20px;
             border: 2px solid rgba(99, 102, 241, 0.3);
             background: transparent;
             color: var(--text);
             cursor: pointer;
             transition: all 0.3s;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .filter-btn.active {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-color: var(--primary);
+            border-color: transparent;
+            transform: scale(1.05);
         }
 
         .filter-btn:hover {
             border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
-        /* Portfolio Grid - Main Grid */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 6rem;
         }
 
-        .portfolio-card {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+        .portfolio-item {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%);
             border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
-            transition: all 0.3s;
             cursor: pointer;
-            display: grid;
-            grid-template-rows: 200px 1fr;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: scaleIn 0.6s ease-out;
         }
 
-        .portfolio-card:hover {
-            transform: translateY(-10px);
+        .portfolio-item:nth-child(1) { animation-delay: 0.1s; }
+        .portfolio-item:nth-child(2) { animation-delay: 0.2s; }
+        .portfolio-item:nth-child(3) { animation-delay: 0.3s; }
+        .portfolio-item:nth-child(4) { animation-delay: 0.4s; }
+        .portfolio-item:nth-child(5) { animation-delay: 0.5s; }
+        .portfolio-item:nth-child(6) { animation-delay: 0.6s; }
+
+        .portfolio-item:hover {
+            transform: translateY(-12px) scale(1.02);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 25px 50px rgba(99, 102, 241, 0.3);
         }
 
-        .portfolio-card-image {
-            width: 100%;
-            height: 200px;
+        .portfolio-header {
+            height: 160px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             display: flex;
             align-items: center;
@@ -447,29 +438,27 @@
             font-size: 3rem;
         }
 
-        .portfolio-card-content {
+        .portfolio-body {
             padding: 2rem;
-            display: grid;
-            grid-template-rows: auto auto 1fr auto;
-            gap: 1rem;
         }
 
-        .portfolio-card-title {
+        .portfolio-title {
             font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
-        .portfolio-card-desc {
+        .portfolio-desc {
             color: var(--text-muted);
             font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
         .portfolio-tags {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: auto;
         }
 
         .tag {
@@ -478,20 +467,27 @@
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
-            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s;
         }
 
-        /* Skills Section - Grid */
+        .tag:hover {
+            background: rgba(99, 102, 241, 0.4);
+            transform: scale(1.1);
+        }
+
+        /* Skills Section */
         .skills-section {
-            margin-top: 5rem;
+            margin-top: 8rem;
             padding-top: 4rem;
-            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            border-top: 2px solid rgba(99, 102, 241, 0.2);
+            animation: pageEnter 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .skills-section h3 {
-            font-size: 2rem;
-            margin-bottom: 3rem;
+        .skills-title {
+            font-size: 2.5rem;
             text-align: center;
+            margin-bottom: 4rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -500,7 +496,7 @@
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 2rem;
         }
 
@@ -510,32 +506,66 @@
             padding: 2rem;
             border-radius: 12px;
             text-align: center;
-            transition: all 0.3s;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: scaleIn 0.6s ease-out;
         }
 
+        .skill-card:nth-child(1) { animation-delay: 0.1s; }
+        .skill-card:nth-child(2) { animation-delay: 0.2s; }
+        .skill-card:nth-child(3) { animation-delay: 0.3s; }
+        .skill-card:nth-child(4) { animation-delay: 0.4s; }
+        .skill-card:nth-child(5) { animation-delay: 0.5s; }
+        .skill-card:nth-child(6) { animation-delay: 0.6s; }
+
         .skill-card:hover {
-            transform: scale(1.05);
+            background: rgba(99, 102, 241, 0.2);
             border-color: var(--secondary);
-            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.2);
+            transform: scale(1.15) rotateY(10deg);
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.3);
         }
 
         .skill-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover .skill-icon {
+            transform: rotateZ(360deg) scale(1.2);
+            animation: spin 0.6s ease-in-out;
+        }
+
+        @keyframes spin {
+            0% { transform: rotateZ(0deg) scale(1); }
+            100% { transform: rotateZ(360deg) scale(1.2); }
         }
 
         .skill-name {
             font-weight: 600;
         }
 
-        /* Experience Timeline - Grid */
+        /* Timeline Section */
+        .timeline-section {
+            margin-top: 8rem;
+            padding-top: 4rem;
+            border-top: 2px solid rgba(99, 102, 241, 0.2);
+            animation: pageEnter 1.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .timeline-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         .timeline-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
@@ -545,27 +575,34 @@
             border-left: 4px solid var(--primary);
             padding: 2rem;
             border-radius: 8px;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: slideInUp 0.8s ease-out;
         }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
 
         .timeline-item:hover {
             border-left-color: var(--secondary);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
-            transform: translateY(-5px);
+            background: rgba(99, 102, 241, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
         }
 
         .timeline-year {
-            font-size: 0.9rem;
-            color: var(--primary);
+            color: var(--accent);
             font-weight: 700;
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .timeline-title {
-            font-size: 1.3rem;
+        .timeline-item-title {
+            font-size: 1.2rem;
             font-weight: 700;
-            margin: 0.5rem 0;
+            margin: 0.75rem 0;
         }
 
         .timeline-desc {
@@ -576,13 +613,13 @@
 
         /* Footer */
         footer {
-            margin-top: 6rem;
+            margin-top: 8rem;
             padding: 3rem 2rem;
-            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            border-top: 2px solid rgba(99, 102, 241, 0.2);
             text-align: center;
         }
 
-        .footer-content {
+        .footer-links {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
@@ -592,48 +629,59 @@
         .footer-link {
             color: var(--text);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            cursor: pointer;
         }
 
         .footer-link:hover {
             color: var(--primary);
+            transform: translateY(-2px);
         }
 
-        .social-links {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            width: 150px;
-            margin: 2rem auto;
-            gap: 1rem;
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
         .social-icon {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: rgba(99, 102, 241, 0.2);
+            border: 2px solid rgba(99, 102, 241, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary);
-            transition: all 0.3s;
             text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
         }
 
         .social-icon:hover {
             background: var(--primary);
             color: white;
-            transform: translateY(-5px);
+            border-color: var(--primary);
+            transform: translateY(-5px) rotateZ(360deg);
+        }
+
+        .footer-text {
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .hero {
+            .hero-section {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                min-height: auto;
             }
 
-            .hero-content h1 {
+            .hero-title {
                 font-size: 3rem;
             }
 
@@ -641,64 +689,46 @@
                 grid-template-columns: 1fr;
             }
 
-            .nav-links {
-                grid-template-columns: repeat(3, auto);
+            .stat-row {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-
-            nav {
-                grid-template-columns: auto 1fr auto;
+            .container {
                 padding: 1rem;
             }
 
-            .nav-links {
-                display: none;
+            .top-header {
+                margin-bottom: 2rem;
             }
 
-            .sidebar-close {
-                display: block;
+            .logo-section {
+                font-size: 1.5rem;
             }
 
-            .sidebar-content {
-                padding: 1.5rem 1rem;
-            }
-
-            .sidebar-links {
-                gap: 0.5rem;
-            }
-
-            .hero {
-                margin-top: 120px;
-                grid-template-columns: 1fr;
-            }
-
-            .hero-content h1 {
+            .hero-title {
                 font-size: 2.5rem;
             }
 
-            .hero-image {
+            .hero-visual {
                 height: 300px;
             }
 
-            .container {
-                padding: 1rem;
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stat-row {
+                grid-template-columns: 1fr;
             }
 
             .portfolio-grid {
                 grid-template-columns: 1fr;
             }
 
-            .filters {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .portfolio-header h2 {
-                font-size: 2rem;
+            .filter-group {
+                justify-content: flex-start;
             }
 
             .skills-grid {
@@ -709,161 +739,115 @@
                 grid-template-columns: 1fr;
             }
 
-            .footer-content {
-                grid-template-columns: 1fr;
+            .social-icons {
+                gap: 1rem;
             }
 
-            .social-links {
-                grid-template-columns: repeat(3, 1fr);
-                width: 100%;
-            }
-
-            .cta-buttons {
-                grid-template-columns: 1fr;
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
             }
         }
 
         @media (max-width: 480px) {
-            nav {
-                grid-template-columns: 1fr auto;
+            .top-header {
+                flex-direction: column;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
             }
 
-            .logo {
-                font-size: 1.2rem;
+            .nav-buttons {
+                width: 100%;
             }
 
-            .hero-content h1 {
+            .hero-title {
                 font-size: 2rem;
             }
 
-            .portfolio-header h2 {
+            .section-title {
                 font-size: 1.5rem;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
             }
 
             .skills-grid {
                 grid-template-columns: 1fr;
             }
 
-            .filters {
-                grid-template-columns: 1fr;
+            .filter-group {
+                flex-direction: column;
             }
 
-            .btn {
-                padding: 10px 16px;
-                font-size: 0.9rem;
+            .filter-btn {
+                width: 100%;
             }
 
-            .social-links {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 0.5rem;
+            .hero-shape {
+                width: 200px;
+                height: 200px;
             }
 
-            .portfolio-card-image {
-                font-size: 2rem;
+            .hero-icon {
+                font-size: 4rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Overlay untuk sidebar -->
-    <div class="overlay" id="overlay"></div>
-
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar" id="sidebar">
-        <button class="sidebar-close" id="sidebarClose">
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="sidebar-content">
-            <div class="sidebar-title">Menu</div>
-            <ul class="sidebar-links">
-                <li><a href="#" onclick="showPage('home'); toggleSidebar()" class="active"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#" onclick="showPage('portfolio'); toggleSidebar()"><i class="fas fa-briefcase"></i> Portfolio</a></li>
-                <li><a href="mailto:muhamadfazryfadilah@gmail.com"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="https://github.com/hujanpawang529-del" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
-            </ul>
+    <!-- TOP HEADER -->
+    <div class="top-header" style="position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(2, 6, 23, 0.95) 0%, rgba(2, 6, 23, 0.8) 100%); backdrop-filter: blur(10px); padding: 1rem 2rem; z-index: 100; border-bottom: 1px solid rgba(99, 102, 241, 0.1);">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 100%;">
+            <div class="logo-section">🚀 Fazry</div>
+            <div class="nav-buttons">
+                <a href="profile.html" class="btn btn-secondary">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+                <a href="mailto:muhamadfazryfadilah@gmail.com" class="btn btn-primary">
+                    <i class="fas fa-envelope"></i> Contact
+                </a>
+            </div>
         </div>
-    </aside>
+    </div>
 
-    <!-- Navigation -->
-    <nav>
-        <button class="menu-toggle" id="menuToggle">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="logo">
-            <i class="fas fa-rocket"></i> Fazry
-        </div>
-        <ul class="nav-links">
-            <li><a onclick="showPage('home')" class="active">Home</a></li>
-            <li><a onclick="showPage('portfolio')">Portfolio</a></li>
-            <li><a href="mailto:muhamadfazryfadilah@gmail.com" class="btn btn-primary" style="padding: 8px 16px;">Contact</a></li>
-        </ul>
-    </nav>
-
-    <div class="container">
+    <div class="container" style="margin-top: 100px;">
         <!-- HOME PAGE -->
         <div id="home" class="page active">
-            <section class="hero">
-                <div class="hero-content">
-                    <h1>Hai, Saya Fazry 👋</h1>
-                    <p>Software Engineering Graduate & Administrative Specialist</p>
-                    <p style="color: var(--text-muted); font-size: 1rem;">Siap berkontribusi di bidang administrasi, logistik, teknologi, dan entrepreneurship dengan dedikasi penuh.</p>
-                    
+            <section class="hero-section">
+                <div class="hero-left">
+                    <h1 class="hero-title">Hai, Saya Fazry 👋</h1>
+                    <p class="hero-subtitle">Software Engineering Graduate</p>
+                    <p class="hero-description">Seorang pelajar SMK Bina Putra dengan keahlian di bidang administrasi, logistik, teknologi, dan entrepreneurship. Siap berkontribusi dengan dedikasi penuh.</p>
                     <div class="cta-buttons">
                         <button class="btn btn-primary" onclick="showPage('portfolio')">
-                            <i class="fas fa-briefcase"></i> Lihat Karya Saya
+                            <i class="fas fa-briefcase"></i> Lihat Portofolio
                         </button>
-                        <a href="mailto:muhamadfazryfadilah@gmail.com" class="btn btn-secondary">
-                            <i class="fas fa-envelope"></i> Email Saya
+                        <a href="profile.html" class="btn btn-secondary">
+                            <i class="fas fa-user-circle"></i> Lihat Profile
                         </a>
                     </div>
                 </div>
 
-                <div class="hero-image">
-                    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.3" />
-                                <stop offset="100%" style="stop-color:#ec4899;stop-opacity:0.3" />
-                            </linearGradient>
-                        </defs>
-                        <circle cx="200" cy="200" r="180" fill="url(#grad1)" stroke="#6366f1" stroke-width="2" opacity="0.5"/>
-                        <circle cx="200" cy="200" r="120" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.3"/>
-                        <circle cx="200" cy="200" r="60" fill="none" stroke="#14b8a6" stroke-width="2" opacity="0.5"/>
-                        <text x="200" y="210" font-size="60" text-anchor="middle" fill="#6366f1" font-weight="bold">👨‍💼</text>
-                    </svg>
-
-                    <div class="floating-card">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">💼</div>
-                        <div style="font-size: 0.9rem; font-weight: 600;">SMK Bina Putra</div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted);">2023-2026</div>
-                    </div>
-
-                    <div class="floating-card">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏆</div>
-                        <div style="font-size: 0.9rem; font-weight: 600;">5+ Pengalaman</div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted);">Profesional</div>
+                <div class="hero-right">
+                    <div class="hero-visual">
+                        <div class="hero-shape shape-1"></div>
+                        <div class="hero-shape shape-2"></div>
+                        <div class="hero-icon">👨‍💼</div>
                     </div>
                 </div>
             </section>
 
-            <section class="stats">
-                <div class="stat-item">
+            <section class="stat-row">
+                <div class="stat">
                     <div class="stat-number">4</div>
                     <div class="stat-label">Keahlian Utama</div>
                 </div>
-                <div class="stat-item">
+                <div class="stat">
                     <div class="stat-number">5+</div>
                     <div class="stat-label">Pengalaman Kerja</div>
                 </div>
-                <div class="stat-item">
+                <div class="stat">
                     <div class="stat-number">25+</div>
                     <div class="stat-label">Proyek & Kegiatan</div>
                 </div>
-                <div class="stat-item">
+                <div class="stat">
                     <div class="stat-number">📍</div>
                     <div class="stat-label">Bandung, Jawa Barat</div>
                 </div>
@@ -872,12 +856,12 @@
 
         <!-- PORTFOLIO PAGE -->
         <div id="portfolio" class="page">
-            <div class="portfolio-header">
-                <h2>Portofolio Saya</h2>
-                <p>Keahlian, Pengalaman, dan Pencapaian</p>
+            <div class="section-header">
+                <h2 class="section-title">Portofolio Saya</h2>
+                <p class="section-subtitle">Keahlian, Pengalaman, dan Pencapaian</p>
             </div>
 
-            <div class="filters">
+            <div class="filter-group">
                 <button class="filter-btn active" onclick="filterPortfolio('all')">Semua</button>
                 <button class="filter-btn" onclick="filterPortfolio('skills')">Keahlian</button>
                 <button class="filter-btn" onclick="filterPortfolio('experience')">Pengalaman</button>
@@ -885,12 +869,11 @@
             </div>
 
             <div class="portfolio-grid">
-                <!-- Keahlian -->
-                <div class="portfolio-card" data-category="skills">
-                    <div class="portfolio-card-image">📊</div>
-                    <div class="portfolio-card-content">
-                        <div class="portfolio-card-title">Administrasi & Manajemen Data</div>
-                        <div class="portfolio-card-desc">Penginputan data, stock opname, dan pengelolaan dokumen logistik dengan akurat serta terorganisir.</div>
+                <div class="portfolio-item" data-category="skills">
+                    <div class="portfolio-header">📊</div>
+                    <div class="portfolio-body">
+                        <h3 class="portfolio-title">Administrasi & Manajemen Data</h3>
+                        <p class="portfolio-desc">Penginputan data, stock opname, dan pengelolaan dokumen logistik dengan akurat.</p>
                         <div class="portfolio-tags">
                             <span class="tag">Data Entry</span>
                             <span class="tag">Logistik</span>
@@ -898,11 +881,11 @@
                     </div>
                 </div>
 
-                <div class="portfolio-card" data-category="skills">
-                    <div class="portfolio-card-image">💻</div>
-                    <div class="portfolio-card-content">
-                        <div class="portfolio-card-title">Teknis & Software</div>
-                        <div class="portfolio-card-desc">Dasar software engineering, Microsoft Office, dan pengolahan dokumen digital secara efisien.</div>
+                <div class="portfolio-item" data-category="skills">
+                    <div class="portfolio-header">💻</div>
+                    <div class="portfolio-body">
+                        <h3 class="portfolio-title">Teknis & Software</h3>
+                        <p class="portfolio-desc">Dasar software engineering, Microsoft Office, dan pengolahan dokumen digital.</p>
                         <div class="portfolio-tags">
                             <span class="tag">HTML/CSS</span>
                             <span class="tag">Office</span>
@@ -910,11 +893,11 @@
                     </div>
                 </div>
 
-                <div class="portfolio-card" data-category="skills">
-                    <div class="portfolio-card-image">🤝</div>
-                    <div class="portfolio-card-content">
-                        <div class="portfolio-card-title">Soft Skills & Kepemimpinan</div>
-                        <div class="portfolio-card-desc">Customer service, teamwork, komunikasi interpersonal, manajemen krisis, dan organisasi acara.</div>
+                <div class="portfolio-item" data-category="skills">
+                    <div class="portfolio-header">🤝</div>
+                    <div class="portfolio-body">
+                        <h3 class="portfolio-title">Soft Skills & Kepemimpinan</h3>
+                        <p class="portfolio-desc">Customer service, teamwork, komunikasi interpersonal, dan organisasi acara.</p>
                         <div class="portfolio-tags">
                             <span class="tag">Leadership</span>
                             <span class="tag">Teamwork</span>
@@ -922,11 +905,11 @@
                     </div>
                 </div>
 
-                <div class="portfolio-card" data-category="skills">
-                    <div class="portfolio-card-image">🛍️</div>
-                    <div class="portfolio-card-content">
-                        <div class="portfolio-card-title">Entrepreneurship & Retail</div>
-                        <div class="portfolio-card-desc">Manajemen usaha ritel, inventory control, dan customer relations dalam bisnis pakan hewan.</div>
+                <div class="portfolio-item" data-category="skills">
+                    <div class="portfolio-header">🛍️</div>
+                    <div class="portfolio-body">
+                        <h3 class="portfolio-title">Entrepreneurship & Retail</h3>
+                        <p class="portfolio-desc">Manajemen usaha ritel, inventory control, dan customer relations.</p>
                         <div class="portfolio-tags">
                             <span class="tag">Business</span>
                             <span class="tag">Retail</span>
@@ -934,12 +917,11 @@
                     </div>
                 </div>
 
-                <!-- Pengalaman -->
-                <div class="portfolio-card" data-category="experience">
-                    <div class="portfolio-card-image">🏢</div>
-                    <div class="portfolio-card-content">
-                        <div class="portfolio-card-title">PT Alkindo Naratama Tbk</div>
-                        <div class="portfolio-card-desc">Staff Gudang - Manajemen inventaris, akurasi data, dan kolaborasi tim logistik perusahaan. (4 bulan)</div>
+                <div class="portfolio-item" data-category="experience">
+                    <div class="portfolio-header">🏢</div>
+                    <div class="portfolio-body">
+                        <h3 class="portfolio-title">PT Alkindo Naratama Tbk</h3>
+                        <p class="portfolio-desc">Staff Gudang - Manajemen inventaris dan kolaborasi tim logistik. (4 bulan)</p>
                         <div class="portfolio-tags">
                             <span class="tag">Nov 2025</span>
                             <span class="tag">Feb 2026</span>
@@ -947,11 +929,11 @@
                     </div>
                 </div>
 
-                <div class="portfolio-card" data-category="experience">
-                    <div class="portfolio-card-image">🛒</div>
-                    <div class="portfolio-card-content">
-                        <div class="portfolio-card-title">Usaha Ritel Pakan Hewan</div>
-                        <div class="portfolio-card-desc">Membangun dan mengelola usaha ritel yang menjual pakan hewan berkualitas, peralatan hewan, dan vaksin hewan.</div>
+                <div class="portfolio-item" data-category="experience">
+                    <div class="portfolio-header">🛒</div>
+                    <div class="portfolio-body">
+                        <h3 class="portfolio-title">Usaha Ritel Pakan Hewan</h3>
+                        <p class="portfolio-desc">Membangun dan mengelola usaha ritel pakan hewan berkualitas.</p>
                         <div class="portfolio-tags">
                             <span class="tag">Business</span>
                             <span class="tag">Retail</span>
@@ -959,12 +941,11 @@
                     </div>
                 </div>
 
-                <!-- Pendidikan -->
-                <div class="portfolio-card" data-category="education">
-                    <div class="portfolio-card-image">🎓</div>
-                    <div class="portfolio-card-content">
-                        <div class="portfolio-card-title">SMK Bina Putra</div>
-                        <div class="portfolio-card-desc">Software Engineering (Rekayasa Perangkat Lunak) - Mempelajari logika pemrograman, database, dan pengembangan software.</div>
+                <div class="portfolio-item" data-category="education">
+                    <div class="portfolio-header">🎓</div>
+                    <div class="portfolio-body">
+                        <h3 class="portfolio-title">SMK Bina Putra</h3>
+                        <p class="portfolio-desc">Software Engineering - Mempelajari pemrograman, database, dan software development.</p>
                         <div class="portfolio-tags">
                             <span class="tag">2023-2026</span>
                             <span class="tag">Aktif</span>
@@ -972,11 +953,11 @@
                     </div>
                 </div>
 
-                <div class="portfolio-card" data-category="education">
-                    <div class="portfolio-card-image">🏆</div>
-                    <div class="portfolio-card-content">
-                        <div class="portfolio-card-title">OSIS & Bela Negara</div>
-                        <div class="portfolio-card-desc">Manajemen acara, koordinasi upacara, dan kerjasama tim lintas divisi organisasi sekolah.</div>
+                <div class="portfolio-item" data-category="education">
+                    <div class="portfolio-header">🏆</div>
+                    <div class="portfolio-body">
+                        <h3 class="portfolio-title">OSIS & Bela Negara</h3>
+                        <p class="portfolio-desc">Manajemen acara, koordinasi upacara, dan kerjasama tim lintas divisi.</p>
                         <div class="portfolio-tags">
                             <span class="tag">May 2024</span>
                             <span class="tag">Oct 2025</span>
@@ -986,8 +967,8 @@
             </div>
 
             <!-- Skills Section -->
-            <div class="skills-section">
-                <h3>Kompetensi Teknis</h3>
+            <section class="skills-section">
+                <h3 class="skills-title">Kompetensi Teknis</h3>
                 <div class="skills-grid">
                     <div class="skill-card">
                         <div class="skill-icon">📋</div>
@@ -1014,49 +995,49 @@
                         <div class="skill-name">Technical Skills</div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Timeline -->
-            <div class="skills-section">
-                <h3>Timeline Perjalanan</h3>
+            <!-- Timeline Section -->
+            <section class="timeline-section">
+                <h3 class="timeline-title">Timeline Perjalanan</h3>
                 <div class="timeline-grid">
                     <div class="timeline-item">
                         <div class="timeline-year">2023</div>
-                        <div class="timeline-title">Masuk SMK Bina Putra</div>
-                        <div class="timeline-desc">Memulai perjalanan pendidikan Software Engineering dengan fokus pada pengembangan perangkat lunak dan database.</div>
+                        <div class="timeline-item-title">Masuk SMK Bina Putra</div>
+                        <div class="timeline-desc">Memulai perjalanan pendidikan Software Engineering dengan fokus pada pemrograman dan database.</div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-year">2024</div>
-                        <div class="timeline-title">Bergabung OSIS & Entrepreneurship</div>
-                        <div class="timeline-desc">Aktif dalam organisasi sekolah dan memulai usaha ritel pakan hewan dengan dedikasi penuh dalam mengelola bisnis.</div>
+                        <div class="timeline-item-title">Bergabung OSIS & Entrepreneurship</div>
+                        <div class="timeline-desc">Aktif dalam organisasi sekolah dan memulai usaha ritel pakan hewan.</div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-year">2025-2026</div>
-                        <div class="timeline-title">Praktik Kerja Lapangan</div>
-                        <div class="timeline-desc">Menjalankan PKL di PT Alkindo Naratama sebagai Staff Gudang sambil mengelola usaha ritel pakan hewan.</div>
+                        <div class="timeline-item-title">Praktik Kerja Lapangan</div>
+                        <div class="timeline-desc">Menjalankan PKL di PT Alkindo Naratama sebagai Staff Gudang.</div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-year">2026</div>
-                        <div class="timeline-title">Lulus & Siap Profesional</div>
-                        <div class="timeline-desc">Lulus SMK dengan pengalaman di administrasi, teknologi, dan entrepreneurship, siap berkontribusi profesional.</div>
+                        <div class="timeline-item-title">Lulus & Siap Profesional</div>
+                        <div class="timeline-desc">Lulus SMK dengan pengalaman di administrasi, teknologi, dan entrepreneurship.</div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer>
-        <div class="footer-content">
+        <div class="footer-links">
             <a href="tel:+6285311914647" class="footer-link">📱 +62 853 1191 4647</a>
             <a href="mailto:muhamadfazryfadilah@gmail.com" class="footer-link">✉️ muhamadfazryfadilah@gmail.com</a>
             <a href="https://github.com/hujanpawang529-del" target="_blank" class="footer-link">💻 GitHub</a>
         </div>
 
-        <div class="social-links">
+        <div class="social-icons">
             <a href="https://github.com/hujanpawang529-del" target="_blank" class="social-icon">
                 <i class="fab fa-github"></i>
             </a>
@@ -1068,99 +1049,32 @@
             </a>
         </div>
 
-        <p style="margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem;">
-            © 2026 Muhamad Fazry Fadilah Wiratama. Dibuat dengan ❤️
-        </p>
+        <p class="footer-text">© 2026 Muhamad Fazry Fadilah Wiratama. Dibuat dengan ❤️</p>
     </footer>
 
     <script>
-        // Toggle Sidebar
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebarClose = document.getElementById('sidebarClose');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        menuToggle.addEventListener('click', toggleSidebar);
-        sidebarClose.addEventListener('click', toggleSidebar);
-        overlay.addEventListener('click', toggleSidebar);
-
-        // Show Page
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
-
             document.getElementById(pageId).classList.add('active');
-
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => link.classList.remove('active'));
-            
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
-
-            window.scrollTo(0, 0);
+            window.scrollTo(0, 100);
         }
 
-        // Filter Portfolio
         function filterPortfolio(category) {
-            const cards = document.querySelectorAll('.portfolio-card');
+            const items = document.querySelectorAll('.portfolio-item');
             const buttons = document.querySelectorAll('.filter-btn');
 
             buttons.forEach(btn => btn.classList.remove('active'));
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
+            event.target.classList.add('active');
 
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'grid';
-                    setTimeout(() => card.style.opacity = '1', 0);
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'grid';
                 } else {
-                    card.style.display = 'none';
+                    item.style.display = 'none';
                 }
             });
         }
-
-        // Sidebar Links Active State
-        document.querySelectorAll('.sidebar-links a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.querySelectorAll('.sidebar-links a').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Nav Links Active State
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                if (this.getAttribute('onclick')) {
-                    document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            });
-        });
-
-        // Prevent body scroll when sidebar is open
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarToggle = document.getElementById('menuToggle');
-            const sidebarElement = document.getElementById('sidebar');
-            
-            function updateSidebarState() {
-                if (sidebarElement.classList.contains('active')) {
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = 'auto';
-                }
-            }
-
-            sidebarToggle.addEventListener('click', updateSidebarState);
-            overlay.addEventListener('click', updateSidebarState);
-            sidebarClose.addEventListener('click', updateSidebarState);
-        });
     </script>
 </body>
 </html>
